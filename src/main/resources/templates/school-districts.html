@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>School Districts</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1>School Districts</h1>
+    <a class="btn" href="/school-districts/new">Add School District</a>
+    <a class="btn secondary" href="/">Back Home</a>
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+    <p class="message" th:if="${error}" th:text="${error}"></p>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>Name</th><th>Contact</th><th>Email</th><th>Phone</th><th>Address</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="district : ${schoolDistricts}">
+            <td th:text="${district.id}"></td>
+            <td th:text="${district.name}"></td>
+            <td th:text="${district.contactPerson}"></td>
+            <td th:text="${district.email}"></td>
+            <td th:text="${district.phone}"></td>
+            <td th:text="${district.address}"></td>
+            <td>
+                <a class="small-btn" th:href="@{'/school-districts/edit/' + ${district.id}}">Edit</a>
+                <form class="row-actions" method="post" th:action="@{/school-districts/delete/{id}(id=${district.id})}" onsubmit="return confirm('Delete this school district?')">
+                    <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(schoolDistricts)}"><td colspan="7" class="empty">No school districts available.</td></tr>
+        </tbody>
+    </table>
+    <a href="/" class="back">Back Home</a>
+</div>
+</body>
+</html>

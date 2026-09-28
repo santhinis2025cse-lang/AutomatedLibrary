@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#F7F9FC">
+    <meta name="description" content="A connected public e-library for digital collections, publishers, institutions and licensing workflows.">
+    <title>LIBRA-NET | Public E-Library Network</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="landing-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<main>
+    <section class="hero" id="top" aria-labelledby="hero-title" data-parallax-root>
+        <canvas class="network-canvas" id="library-network" aria-hidden="true"></canvas>
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="focus-frame" id="focus-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="eyebrow-line"></span> PUBLIC ELECTRONIC LIBRARY NETWORK</p>
+                <h1 class="hero-title" id="hero-title" aria-label="Automated Public Electronic Library and E-Book Licensing Network">
+                    <span class="focus-line"><span class="focus-word" data-focus-target>Automated</span> <span class="focus-word" data-focus-target>Public</span></span>
+                    <span class="focus-line"><span class="focus-word" data-focus-target>Electronic</span></span>
+                    <span class="focus-line"><span class="focus-word" data-focus-target>Library</span></span>
+                    <span class="hero-subtitle"><span class="focus-word" data-focus-target>&amp; E-Book</span> <span class="focus-word" data-focus-target>Licensing</span> <span class="focus-word" data-focus-target>Network</span></span>
+                </h1>
+                <p class="hero-description">Connect digital collections, publishers, institutions and licensing workflows through one unified electronic library platform.</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="/ebooks">Explore Ebooks <span aria-hidden="true">↗</span></a>
+                    <a class="button button-quiet" href="#ecosystem">Explore Network <span aria-hidden="true">↓</span></a>
+                </div>
+            </div>
+            <aside class="hero-aside parallax-item" data-parallax="0.35" aria-label="Network overview">
+                <span class="aside-index">NETWORK / 01</span>
+                <div class="network-orbit" aria-hidden="true"><span></span><span></span><span></span><span></span><b>LN</b></div>
+                <p>One collection.<br>Connected workflows.</p>
+                <span class="aside-foot">COLLECTION · ACCESS · LICENSING</span>
+            </aside>
+        </div>
+        <div class="hero-bottom"><span>01 — DIGITAL KNOWLEDGE NETWORK</span><a href="#ecosystem">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a><span class="hero-coordinate">PUBLIC ACCESS / EST. ONLINE</span></div>
+    </section>
+
+    <section class="ecosystem-section" id="ecosystem" aria-labelledby="ecosystem-title">
+        <div class="section-wrap">
+            <div class="section-heading">
+                <div><p class="eyebrow"><span class="eyebrow-line"></span> THE PLATFORM</p><h2 id="ecosystem-title">Digital library <em>ecosystem</em></h2></div>
+                <p class="section-note">A single workspace for the people, collections and agreements that keep a public library moving.</p>
+            </div>
+            <div class="stats-strip" aria-label="Live system status">
+                <div class="stat-item"><span>EBOOKS IN COLLECTION</span><strong th:text="${#numbers.formatInteger(ebookCount, 2)}">00</strong></div>
+                <div class="stat-item"><span>REGISTERED PUBLISHERS</span><strong th:text="${#numbers.formatInteger(publisherCount, 2)}">00</strong></div>
+                <div class="stat-item"><span>LICENSE RECORDS</span><strong th:text="${#numbers.formatInteger(licenseCount, 2)}">00</strong></div>
+                <div class="stat-item stat-status"><span>NETWORK STATUS</span><strong><i class="status-dot"></i> OPERATIONAL</strong></div>
+            </div>
+            <div class="home-grid module-grid">
+                <a href="/members" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">01 / PEOPLE</span><h3>Members</h3><p>Member records and access details.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/products" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">02 / CATALOG</span><h3>Products</h3><p>Library products, formats and pricing.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/publishers" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">03 / PARTNERS</span><h3>Publishers</h3><p>Publisher profiles and contact details.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/purchase-orders" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">04 / PROCUREMENT</span><h3>Purchase Orders</h3><p>Acquisition records and publisher orders.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/sales-orders" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">05 / INSTITUTIONS</span><h3>Sales Orders</h3><p>Institutional orders and fulfillment details.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/school-districts" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">06 / COMMUNITIES</span><h3>School Districts</h3><p>District contacts and service information.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/vendor-bills" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">07 / ACCOUNTS</span><h3>Vendor Bills</h3><p>Publisher bills and payment status.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/ebooks" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">08 / COLLECTION</span><h3>Ebooks</h3><p>Digital titles, metadata and publishers.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+                <a href="/licenses" class="home-card parallax-item" data-parallax="0.18"><span class="module-index">09 / ACCESS</span><h3>Licenses</h3><p>Licensing periods and available seats.</p><span class="module-link">OPEN MODULE <b aria-hidden="true">↗</b></span></a>
+            </div>
+            <footer class="site-footer"><span>LIBRA-NET · PUBLIC ELECTRONIC LIBRARY</span><a href="#top">RETURN TO TOP ↑</a></footer>
+        </div>
+    </section>
+</main>
+<script th:src="@{/js/library-showcase.js}" defer></script>
+</body>
+</html>

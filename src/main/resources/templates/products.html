@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Products</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1>Products</h1>
+    <a class="btn" href="/products/new">Add Product</a>
+    <a class="btn secondary" href="/">Back Home</a>
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+    <p class="message" th:if="${error}" th:text="${error}"></p>
+    <table class="data-table">
+        <thead>
+        <tr><th>ID</th><th>Name</th><th>Type</th><th>Price</th><th>Active</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.type}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.active}"></td>
+            <td>
+                <a class="small-btn" th:href="@{'/products/edit/' + ${product.id}}">Edit</a>
+                <form class="row-actions" method="post" th:action="@{/products/delete/{id}(id=${product.id})}" onsubmit="return confirm('Delete this product?')">
+                    <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(products)}"><td colspan="6" class="empty">No products available.</td></tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

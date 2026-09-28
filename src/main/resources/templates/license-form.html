@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>License Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1 th:text="${license.id == null ? 'Add License' : 'Edit License'}"></h1>
+    <form th:action="@{/licenses/save}" th:object="${license}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Total Licenses<input type="number" th:field="*{totalLicenses}" required /></label>
+        <label>Start Date<input type="date" th:field="*{startDate}" /></label>
+        <label>End Date<input type="date" th:field="*{endDate}" /></label>
+        <label>Ebook
+            <select name="ebookId" required>
+                <option value="" disabled th:selected="${license.ebook == null}">Choose an ebook</option>
+                <option th:each="ebook : ${ebooks}" th:value="${ebook.id}" th:text="${ebook.title}" th:selected="${license.ebook != null and license.ebook.id == ebook.id}"></option>
+            </select>
+        </label>
+        <button type="submit">Save</button>
+        <a class="btn secondary" href="/licenses">Cancel</a>
+        <a class="back" href="/">Back Home</a>
+    </form>
+</div>
+</body>
+</html>

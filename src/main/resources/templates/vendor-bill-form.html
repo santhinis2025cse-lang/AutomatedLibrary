@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Vendor Bill Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1 th:text="${vendorBill.id == null ? 'Add Vendor Bill' : 'Edit Vendor Bill'}"></h1>
+    <form th:action="@{/vendor-bills/save}" th:object="${vendorBill}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Bill Number<input type="text" th:field="*{billNumber}" required /></label>
+        <label>Amount<input type="number" step="0.01" th:field="*{amount}" required /></label>
+        <label>Bill Date<input type="date" th:field="*{billDate}" /></label>
+        <label>Status<input type="text" th:field="*{status}" /></label>
+        <label>Payment Status<input type="text" th:field="*{paymentStatus}" /></label>
+        <label>Publisher
+            <select name="publisherId" required>
+                <option value="" disabled th:selected="${vendorBill.publisher == null}">Choose a publisher</option>
+                <option th:each="publisher : ${publishers}" th:value="${publisher.id}" th:text="${publisher.name}" th:selected="${vendorBill.publisher != null and vendorBill.publisher.id == publisher.id}"></option>
+            </select>
+        </label>
+        <label>Purchase Order
+            <select name="purchaseOrderId" required>
+                <option value="" disabled th:selected="${vendorBill.purchaseOrder == null}">Choose a purchase order</option>
+                <option th:each="po : ${purchaseOrders}" th:value="${po.id}" th:text="${po.poNumber}" th:selected="${vendorBill.purchaseOrder != null and vendorBill.purchaseOrder.id == po.id}"></option>
+            </select>
+        </label>
+        <button type="submit">Save</button>
+        <a class="btn secondary" href="/vendor-bills">Cancel</a>
+        <a class="back" href="/">Back Home</a>
+    </form>
+</div>
+</body>
+</html>

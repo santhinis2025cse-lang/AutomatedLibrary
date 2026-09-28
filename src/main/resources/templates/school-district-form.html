@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>School District Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1 th:text="${schoolDistrict.id == null ? 'Add School District' : 'Edit School District'}"></h1>
+    <form th:action="@{/school-districts/save}" th:object="${schoolDistrict}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Name<input type="text" th:field="*{name}" required /></label>
+        <label>Contact Person<input type="text" th:field="*{contactPerson}" /></label>
+        <label>Email<input type="email" th:field="*{email}" /></label>
+        <label>Phone<input type="text" th:field="*{phone}" /></label>
+        <label>Address<input type="text" th:field="*{address}" /></label>
+        <button type="submit">Save</button>
+        <a class="btn secondary" href="/school-districts">Cancel</a>
+        <a class="back" href="/">Back Home</a>
+    </form>
+</div>
+</body>
+</html>

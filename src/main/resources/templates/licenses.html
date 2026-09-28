@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Licenses</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1>Licenses</h1>
+    <a class="btn" href="/licenses/new">Add License</a>
+    <a class="btn secondary" href="/">Back Home</a>
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+    <p class="message" th:if="${error}" th:text="${error}"></p>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>Total Licenses</th><th>Start Date</th><th>End Date</th><th>Ebook</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="license : ${licenses}">
+            <td th:text="${license.id}"></td>
+            <td th:text="${license.totalLicenses}"></td>
+            <td th:text="${license.startDate}"></td>
+            <td th:text="${license.endDate}"></td>
+            <td th:text="${license.ebook != null ? license.ebook.title : 'N/A'}"></td>
+            <td>
+                <a class="small-btn" th:href="@{'/licenses/edit/' + ${license.id}}">Edit</a>
+                <form class="row-actions" method="post" th:action="@{/licenses/delete/{id}(id=${license.id})}" onsubmit="return confirm('Delete this license?')">
+                    <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(licenses)}"><td colspan="6" class="empty">No licenses available.</td></tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

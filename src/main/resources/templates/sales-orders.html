@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sales Orders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1>Sales Orders</h1>
+    <a class="btn" href="/sales-orders/new">Add Sales Order</a>
+    <a class="btn secondary" href="/">Back Home</a>
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+    <p class="message" th:if="${error}" th:text="${error}"></p>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>Order Number</th><th>Status</th><th>Amount</th><th>Date</th><th>District</th><th>Product</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="so : ${salesOrders}">
+            <td th:text="${so.id}"></td>
+            <td th:text="${so.orderNumber}"></td>
+            <td th:text="${so.status}"></td>
+            <td th:text="${so.amount}"></td>
+            <td th:text="${so.orderDate}"></td>
+            <td th:text="${so.schoolDistrict != null ? so.schoolDistrict.name : 'N/A'}"></td>
+            <td th:text="${so.product != null ? so.product.name : 'N/A'}"></td>
+            <td>
+                <a class="small-btn" th:href="@{'/sales-orders/edit/' + ${so.id}}">Edit</a>
+                <form class="row-actions" method="post" th:action="@{/sales-orders/delete/{id}(id=${so.id})}" onsubmit="return confirm('Delete this sales order?')">
+                    <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(salesOrders)}"><td colspan="8" class="empty">No sales orders available.</td></tr>
+        </tbody>
+    </table>
+    <a href="/" class="back">Back Home</a>
+</div>
+</body>
+</html>

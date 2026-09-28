@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>E-Book Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 class="page-title" th:text="${ebook.id == null ? 'Add Ebook' : 'Edit Ebook'}"></h1>
+
+        <form th:action="@{/ebooks/save}"
+              th:object="${ebook}"
+              method="post">
+
+                        <input type="hidden" th:field="*{id}">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text"
+                           th:field="*{title}"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>ISBN</label>
+                    <input type="text"
+                           th:field="*{isbn}">
+                </div>
+
+                <div class="form-group">
+                    <label>Genre</label>
+                    <input type="text"
+                           th:field="*{genre}">
+                </div>
+
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number"
+                           step="0.01"
+                           th:field="*{price}">
+                </div>
+
+                <div class="form-group">
+                    <label>Publisher</label>
+
+                    <select name="publisherId">
+
+                        <option value="">
+                            Choose a publisher
+                        </option>
+
+                        <option th:each="publisher : ${publishers}"
+                                th:value="${publisher.id}"
+                            th:text="${publisher.name}"
+                            th:selected="${ebook.publisher != null and ebook.publisher.id == publisher.id}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <button type="submit" class="btn">
+                    SAVE
+                </button>
+
+                <a href="/ebooks"
+                   class="btn btn-secondary">
+                    CANCEL
+                </a>
+
+                <a href="/" class="back">Back Home</a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

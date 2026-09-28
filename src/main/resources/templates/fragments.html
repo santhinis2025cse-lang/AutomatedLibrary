@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="site-topbar" th:fragment="topbar">
+    <a class="brand" href="/" aria-label="LIBRA-NET home"><span class="brand-mark">LN</span><span>LIBRA-NET</span></a>
+    <div class="topbar-status"><i class="status-dot"></i><span>NETWORK STATUS</span><strong>OPERATIONAL</strong></div>
+    <a class="topbar-action" href="/ebooks">Explore Library <span aria-hidden="true">↗</span></a>
+    <nav class="module-nav" aria-label="Library modules">
+        <a href="/members">Members</a><a href="/products">Products</a><a href="/publishers">Publishers</a>
+        <a href="/purchase-orders">Purchase Orders</a><a href="/sales-orders">Sales Orders</a>
+        <a href="/school-districts">Districts</a><a href="/vendor-bills">Vendor Bills</a>
+        <a href="/ebooks">Ebooks</a><a href="/licenses">Licenses</a>
+    </nav>
+    <script th:src="@{/js/library-ui.js}" defer></script>
+</header>
+</body>
+</html>

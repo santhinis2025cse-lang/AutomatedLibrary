@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Members</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">Library<br>Management</div>
+        <div class="subtitle">Manage library members.</div>
+    </div>
+
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+    <p class="message" th:if="${error}" th:text="${error}"></p>
+
+    <div class="card">
+
+        <h2>Add a member</h2>
+
+        <form th:action="@{/members/save}"
+              th:object="${member}"
+              method="post">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text"
+                           th:field="*{name}"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email"
+                           th:field="*{email}">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text"
+                           th:field="*{phone}">
+                </div>
+
+                <div class="form-group">
+                    <label>Membership Start</label>
+                    <input type="date" th:field="*{membershipStart}">
+                </div>
+
+                <div class="form-group">
+                    <label>Membership Expiry</label>
+                    <input type="date" th:field="*{membershipExpiry}">
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <input type="text" th:field="*{status}">
+                </div>
+
+            </div>
+
+            <div class="actions">
+                <button class="btn" type="submit">
+                    ADD MEMBER
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Members</h2>
+
+        <table>
+
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>PHONE</th>
+                <th>MEMBERSHIP START</th>
+                <th>MEMBERSHIP EXPIRY</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="member : ${members}">
+
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.phone}"></td>
+                <td th:text="${member.membershipStart}"></td>
+                <td th:text="${member.membershipExpiry}"></td>
+                <td th:text="${member.status}"></td>
+
+                <td>
+                    <a class="btn btn-small"
+                       th:href="@{/members/edit/{id}(id=${member.id})}">
+                        UPDATE
+                    </a>
+
+                                        <form class="row-actions" method="post"
+                                                    th:action="@{/members/delete/{id}(id=${member.id})}"
+                                                    onsubmit="return confirm('Delete member?')">
+                                                <button class="btn btn-danger btn-small" type="submit">DELETE</button>
+                                        </form>
+                </td>
+
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(members)}">
+                <td colspan="8" class="empty">No members available.</td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <a href="/" class="back">Back Home</a>
+
+</div>
+
+</body>
+</html>

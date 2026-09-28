@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Purchase Orders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="module-page">
+<div th:replace="~{fragments :: topbar}"></div>
+<div class="container">
+    <h1>Purchase Orders</h1>
+    <a class="btn" href="/purchase-orders/new">Add Purchase Order</a>
+    <a class="btn secondary" href="/">Back Home</a>
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+    <p class="message" th:if="${error}" th:text="${error}"></p>
+    <table>
+        <thead>
+        <tr><th>ID</th><th>PO Number</th><th>Status</th><th>Amount</th><th>Order Date</th><th>Publisher</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="po : ${purchaseOrders}">
+            <td th:text="${po.id}"></td>
+            <td th:text="${po.poNumber}"></td>
+            <td th:text="${po.status}"></td>
+            <td th:text="${po.amount}"></td>
+            <td th:text="${po.orderDate}"></td>
+            <td th:text="${po.publisher != null ? po.publisher.name : 'N/A'}"></td>
+            <td>
+                <a class="small-btn" th:href="@{'/purchase-orders/edit/' + ${po.id}}">Edit</a>
+                <form class="row-actions" method="post" th:action="@{/purchase-orders/delete/{id}(id=${po.id})}" onsubmit="return confirm('Delete this purchase order?')">
+                    <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(purchaseOrders)}"><td colspan="7" class="empty">No purchase orders available.</td></tr>
+        </tbody>
+    </table>
+    <a href="/" class="back">Back Home</a>
+</div>
+</body>
+</html>
